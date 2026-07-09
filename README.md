@@ -7,7 +7,7 @@ Google Colab. It follows the Notre Dame CMS Open Data Workshop lesson
 format.
 
 The built lesson site is published at:
-**https://JorgeMunoz133.github.io/mini-model-parT-lesson/**
+**https://JorgeMunoz133.github.io/mini-model-parT-lesson-v2/**
 
 ## Note about lesson life cycle stage
 
