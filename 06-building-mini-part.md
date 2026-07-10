@@ -20,9 +20,9 @@ exercises: 15
 - Trace the shape of a batch of data through every layer of the forward pass.
 ::::::
 
-This is the heart of the project: `class MiniParT` in `code/model.py`,
-piece by piece. Nothing here is magic - every line is one of a handful of
-building blocks stacked together.
+This is the heart of the project: `class MiniParT`, which you'll build in
+this episode piece by piece. Nothing here is magic - every line is one of
+a handful of building blocks stacked together.
 
 ```python
 class MiniParT(nn.Module):
