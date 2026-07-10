@@ -38,8 +38,10 @@ particle hits.
 
 ## The 10 numbers we give the model
 
-For every jet, we use these 10 features (this list lives in `code/features.py`
-as `FEATURE_NAMES`):
+For every jet, we use these 10 features. Later in this episode you'll define
+this exact list as `FEATURE_NAMES` in code, and the `extract_features()`
+function built in the [next episode](04-finding-the-truth-labels.md) reuses
+it:
 
 ### Where the jet is and how big it is
 
@@ -102,8 +104,23 @@ name without needing any CERN-specific software installed:
 
 ```python
 import uproot
+
+FEATURE_NAMES = [
+    'Jet_pt', 'Jet_eta', 'Jet_phi', 'Jet_mass',
+    'Jet_chHEF', 'Jet_neHEF', 'Jet_chEmEF', 'Jet_neEmEF',
+    'Jet_nConstituents', 'Jet_puId'
+]
+max_events = 50000
+
 tree = uproot.open(TTHTOBB_PATH)["Events"]
 events = tree.arrays(FEATURE_NAMES, entry_stop=max_events)
+print("Number of events loaded:", len(events))
+print("Fields loaded:", events.fields)
+```
+
+```output
+Number of events loaded: 50000
+Fields loaded: ['Jet_pt', 'Jet_eta', 'Jet_phi', 'Jet_mass', 'Jet_chHEF', 'Jet_neHEF', 'Jet_chEmEF', 'Jet_neEmEF', 'Jet_nConstituents', 'Jet_puId']
 ```
 
 `TTHTOBB_PATH` is the streaming URL you saved in
@@ -111,7 +128,9 @@ events = tree.arrays(FEATURE_NAMES, entry_stop=max_events)
 reads directly from CERN over that URL, just like a local file path.
 `tree.arrays(...)` reads the requested columns for every event into
 memory, and `entry_stop=max_events` caps how many events to read, so you
-can test on a small slice before running on everything.
+can test on a small slice before running on everything - here it caps the
+174,000 events in the file down to the 50,000 shown above. `events.fields`
+confirms the 10 columns actually loaded match `FEATURE_NAMES`.
 
 ## Quick recap
 - A jet is a spray of particles created when a quark flies out of a collision.
@@ -136,10 +155,6 @@ from sklearn.preprocessing import StandardScaler
 
 vector.register_awkward()
 
-# Fixed seeds so training is reproducible - see the callout below.
-torch.manual_seed(42)
-np.random.seed(42)
-
 # We avoid DeepJet/DeepCSV variables as requested.
 # Using kinematics + energy fractions + pileup/multiplicity info.
 FEATURE_NAMES = [
@@ -154,16 +169,6 @@ FEATURE_NAMES = [
 This block gathers the imports used across the rest of this lesson,
 including `vector.register_awkward()`, which is needed before the
 four-vector matching used in the next episode will work.
-
-::: callout
-`torch.manual_seed(42)` and `np.random.seed(42)` fix the starting point
-for every random process used later - the model's initial weights,
-dropout, and batch shuffling. Without a fixed seed, every learner (and
-every re-run) trains a slightly different model, so nobody's numbers
-will exactly match anyone else's, including the example numbers quoted
-later in this lesson. Run this cell before building or training the
-model, not after.
-:::
 
 DeepJet and DeepCSV are CMS's own existing, more sophisticated jet-tagging
 algorithms - already trained to estimate things like "how likely is this
