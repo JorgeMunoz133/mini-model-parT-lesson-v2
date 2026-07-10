@@ -247,11 +247,6 @@ def extract_features(filepath, label, is_signal=True, max_events=None):
     return X, y
 ```
 
-If you're streaming files with the paths from
-[Working in Google Colab](02-colab-and-data-access.md), calling this
-function looks like `extract_features(TTHTOBB_PATH, label=0, is_signal=True, max_events=...)`,
-which the next episode covers in full.
-
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Question
