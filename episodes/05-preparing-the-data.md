@@ -20,9 +20,10 @@ exercises: 10
 - Convert NumPy arrays into PyTorch tensors and batches using `TensorDataset` and `DataLoader`.
 ::::::
 
-Once `code/features.py` and `code/labels.py` have turned all three files
-into arrays of jet pairs and labels, three things still need to happen
-before we can hand this to a neural network - all in `code/prepare_data.py`.
+Once the `extract_features()` function from the [previous episode](04-finding-the-truth-labels.md)
+has turned all three files into arrays of jet pairs and labels, three
+things still need to happen before we can hand this to a neural network,
+all in the code built in this episode below.
 
 ## Step 1 - Combine everything into one big pile
 

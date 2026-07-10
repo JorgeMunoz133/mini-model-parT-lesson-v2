@@ -22,7 +22,8 @@ Training accuracy (see [Training the Model](07-training-the-model.md)) can
 lie to you - a model can look great on data it's already memorized and
 still be useless on new data. This episode is about actually finding out
 whether MiniParT learned something real, using only the 20% of data it
-never saw during training. All of this is in `code/evaluate.py`.
+never saw during training. All of this is in the code built in this
+episode below.
 
 ## Step 1 - Test accuracy
 

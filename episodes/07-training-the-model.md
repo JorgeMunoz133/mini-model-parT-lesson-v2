@@ -21,8 +21,8 @@ exercises: 10
 The model from [Building MiniParT](06-building-mini-part.md) starts out
 knowing nothing - its weights are randomly initialized. Training is the
 repeated process of showing it examples, checking how wrong its guesses
-are, and nudging its weights to be a little less wrong next time. This
-all lives in `code/train.py`.
+are, and nudging its weights to be a little less wrong next time. This is
+what the code built in this episode below does.
 
 ## Setup
 
