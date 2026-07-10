@@ -102,6 +102,23 @@ After that, the lesson builds MiniParT from scratch, step by step:
 7. [**Evaluating the Model**](08-evaluating-the-model.md) - did it work, and how do we know?
 8. [**The Complete Code**](09-complete-code.md) - every piece, assembled in one place
 
+Each of episodes 2 through 8 follows the same shape. The prose in the
+body of the episode is where the actual teaching happens: it walks
+through the *reasoning* behind each piece of code, one small idea at a
+time - why a feature is included, what a line of PyTorch is really
+doing, why a step needs to happen before another one. Then, at the very
+end of every episode, a **"Full code for this lesson"** section collects
+that episode's code into one or two plain cells, with no further
+explanation - just the building blocks themselves, ready to run.
+
+These "Full code" blocks are cumulative: each one assumes every earlier
+episode's "Full code" block is already sitting in your Colab notebook,
+run in order. Copy each episode's block into a new cell as you reach it,
+run it, and by the end of episode 7 your notebook *is* a trained MiniParT
+model, built up one episode at a time. Episode 9 then reprints the whole
+pipeline as a single reference, for whenever you want to see it all
+without the surrounding explanation.
+
 ## How we'll judge whether it worked
 
 Later in this lesson, in [Evaluating the Model](08-evaluating-the-model.md),
