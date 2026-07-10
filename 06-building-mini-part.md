@@ -237,6 +237,13 @@ learner (and every re-run) trains a slightly different model, so
 nobody's numbers will exactly match anyone else's, including the example
 numbers quoted later in this lesson. Run this cell before building or
 training the model, not after.
+
+The `42` itself isn't special - it's just an arbitrary fixed integer.
+Any number would work equally well as a seed; what matters is picking
+*some* fixed value so the "random" numbers PyTorch and NumPy generate
+follow the same sequence every time the code runs, the same way
+`random_state=42` did for the train/test split in
+[Preparing the Data](05-preparing-the-data.md).
 :::
 
 Instantiating `MiniParT` and calling `print(model)` prints a summary of
