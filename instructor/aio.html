@@ -1448,7 +1448,7 @@ number of events, and why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A: Fewer events. A stricter (smaller) ΔR threshold means a jet has to
 point much closer to a truth quark’s direction to count as “matched.”
@@ -1488,7 +1488,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-05-preparing-the-data"><p>Content from <a href="05-preparing-the-data.html">Preparing the Data</a></p>
 <hr>
-<p>Last updated on 2026-07-09 |
+<p>Last updated on 2026-07-10 |
 
         <a href="https://github.com/JorgeMunoz133/mini-model-parT-lesson-v2/edit/main/episodes/05-preparing-the-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -1539,10 +1539,10 @@ leakage.</li>
 </div>
 </div>
 </div>
-<p>Once <code>code/features.py</code> and <code>code/labels.py</code>
-have turned all three files into arrays of jet pairs and labels, three
-things still need to happen before we can hand this to a neural network
-- all in <code>code/prepare_data.py</code>.</p>
+<p>Once the <code>extract_features()</code> function from the <a href="04-finding-the-truth-labels.html">previous episode</a> has turned
+all three files into arrays of jet pairs and labels, three things still
+need to happen before we can hand this to a neural network, all in the
+code built in this episode below.</p>
 <section><h2 class="section-heading" id="step-1---combine-everything-into-one-big-pile">Step 1 - Combine everything into one big pile<a class="anchor" aria-label="anchor" href="#step-1---combine-everything-into-one-big-pile"></a>
 </h2>
 <hr class="half-width">
@@ -1825,8 +1825,8 @@ forward pass.</li>
 </div>
 </div>
 </div>
-<p>This is the heart of the project: <code>class MiniParT</code> in
-<code>code/model.py</code>, piece by piece. Nothing here is magic -
+<p>This is the heart of the project: <code>class MiniParT</code>, which
+you’ll build in this episode piece by piece. Nothing here is magic -
 every line is one of a handful of building blocks stacked together.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2147,7 +2147,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-07-training-the-model"><p>Content from <a href="07-training-the-model.html">Training the Model</a></p>
 <hr>
-<p>Last updated on 2026-07-09 |
+<p>Last updated on 2026-07-10 |
 
         <a href="https://github.com/JorgeMunoz133/mini-model-parT-lesson-v2/edit/main/episodes/07-training-the-model.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -2196,8 +2196,8 @@ model generalizes.</li>
 MiniParT</a> starts out knowing nothing - its weights are randomly
 initialized. Training is the repeated process of showing it examples,
 checking how wrong its guesses are, and nudging its weights to be a
-little less wrong next time. This all lives in
-<code>code/train.py</code>.</p>
+little less wrong next time. This is what the code built in this episode
+below does.</p>
 <section><h2 class="section-heading" id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
 <hr class="half-width">
@@ -2441,7 +2441,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-08-evaluating-the-model"><p>Content from <a href="08-evaluating-the-model.html">Evaluating the Model</a></p>
 <hr>
-<p>Last updated on 2026-07-09 |
+<p>Last updated on 2026-07-10 |
 
         <a href="https://github.com/JorgeMunoz133/mini-model-parT-lesson-v2/edit/main/episodes/08-evaluating-the-model.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 40 minutes</p>
@@ -2491,7 +2491,7 @@ the Model</a>) can lie to you - a model can look great on data it’s
 already memorized and still be useless on new data. This episode is
 about actually finding out whether MiniParT learned something real,
 using only the 20% of data it never saw during training. All of this is
-in <code>code/evaluate.py</code>.</p>
+in the code built in this episode below.</p>
 <section><h2 class="section-heading" id="step-1---test-accuracy">Step 1 - Test accuracy<a class="anchor" aria-label="anchor" href="#step-1---test-accuracy"></a>
 </h2>
 <hr class="half-width">
