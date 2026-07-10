@@ -354,7 +354,7 @@ other</a></li>
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Building MiniParT</h1>
-        <p>Last updated on 2026-07-09 |
+        <p>Last updated on 2026-07-10 |
 
         <a href="https://github.com/JorgeMunoz133/mini-model-parT-lesson-v2/edit/main/episodes/06-building-mini-part.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -651,8 +651,30 @@ go.</p>
 <span id="cb7-40"><a href="#cb7-40" tabindex="-1" aria-label="code-block-7-40"></a>        out <span class="op">=</span> <span class="va">self</span>.mlp(x_pooled) <span class="co"># shape: (Batch, num_classes)</span></span>
 <span id="cb7-41"><a href="#cb7-41" tabindex="-1" aria-label="code-block-7-41"></a>        <span class="cf">return</span> out</span>
 <span id="cb7-42"><a href="#cb7-42" tabindex="-1" aria-label="code-block-7-42"></a></span>
-<span id="cb7-43"><a href="#cb7-43" tabindex="-1" aria-label="code-block-7-43"></a>model <span class="op">=</span> MiniParT(input_dim<span class="op">=</span><span class="bu">len</span>(FEATURE_NAMES))</span>
-<span id="cb7-44"><a href="#cb7-44" tabindex="-1" aria-label="code-block-7-44"></a><span class="bu">print</span>(model)</span></code></pre>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1" aria-label="code-block-7-43"></a><span class="co"># Fixed seeds so training is reproducible - see the callout below.</span></span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1" aria-label="code-block-7-44"></a>torch.manual_seed(<span class="dv">42</span>)</span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1" aria-label="code-block-7-45"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1" aria-label="code-block-7-46"></a></span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1" aria-label="code-block-7-47"></a>model <span class="op">=</span> MiniParT(input_dim<span class="op">=</span><span class="bu">len</span>(FEATURE_NAMES))</span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1" aria-label="code-block-7-48"></a><span class="bu">print</span>(model)</span></code></pre>
+</div>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><code>torch.manual_seed(42)</code> and
+<code>np.random.seed(42)</code> fix the starting point for every random
+process used from here on - the model’s initial weights, dropout, and
+batch shuffling. Without a fixed seed, every learner (and every re-run)
+trains a slightly different model, so nobody’s numbers will exactly
+match anyone else’s, including the example numbers quoted later in this
+lesson. Run this cell before building or training the model, not
+after.</p>
+</div>
+</div>
 </div>
 <p>Instantiating <code>MiniParT</code> and calling
 <code>print(model)</code> prints a summary of every layer defined above,
@@ -741,8 +763,8 @@ any links that you are not going to use.
   "url": "https://JorgeMunoz133.github.io/mini-model-parT-lesson-v2/06-building-mini-part.html",
   "identifier": "https://JorgeMunoz133.github.io/mini-model-parT-lesson-v2/06-building-mini-part.html",
   "dateCreated": "2026-07-08",
-  "dateModified": "2026-07-09",
-  "datePublished": "2026-07-09"
+  "dateModified": "2026-07-10",
+  "datePublished": "2026-07-10"
 }
 
   </script><script>
