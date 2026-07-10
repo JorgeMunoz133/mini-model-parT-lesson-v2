@@ -254,7 +254,8 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#piece-1---the-embedding-layer-translating-raw-numbers-into-a-richer-language">Piece 1 - The embedding layer: translating raw numbers into a richer
+        <ul><li><a href="#fixing-the-random-seed-before-building-anything">Fixing the random seed, before building anything</a></li>
+<li><a href="#piece-1---the-embedding-layer-translating-raw-numbers-into-a-richer-language">Piece 1 - The embedding layer: translating raw numbers into a richer
 language</a></li>
 <li><a href="#piece-2---self-attention-letting-the-two-jets-talk-to-each-other">Piece 2 - Self-attention: letting the two jets “talk” to each
 other</a></li>
@@ -433,12 +434,45 @@ decision step.</li>
 <li>
 <strong><code>num_classes=3</code></strong> - how many possible
 answers there are (Hbb, Hcc, QCD).</li>
-</ul><section><h2 class="section-heading" id="piece-1---the-embedding-layer-translating-raw-numbers-into-a-richer-language">Piece 1 - The embedding layer: translating raw numbers into a richer
-language<a class="anchor" aria-label="anchor" href="#piece-1---the-embedding-layer-translating-raw-numbers-into-a-richer-language"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb2">
+</ul><section><h2 class="section-heading" id="fixing-the-random-seed-before-building-anything">Fixing the random seed, before building anything<a class="anchor" aria-label="anchor" href="#fixing-the-random-seed-before-building-anything"></a></h2>
+<hr class="half-width"><p>Before defining any of the pieces below, fix the random seed:</p>
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="va">self</span>.embedding <span class="op">=</span> nn.Linear(input_dim, embed_dim)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>np.random.seed(<span class="dv">42</span>)</span></code></pre>
+</div>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><code>torch.manual_seed(42)</code> and
+<code>np.random.seed(42)</code> fix the starting point for every random
+process used from here on - the model’s initial weights, dropout, and
+batch shuffling. Without a fixed seed, every learner (and every re-run)
+trains a slightly different model, so nobody’s numbers will exactly
+match anyone else’s, including the example numbers quoted later in this
+lesson. Run this cell before building or training the model, not
+after.</p>
+<p>The <code>42</code> itself isn’t special - it’s just an arbitrary
+fixed integer. Any number would work equally well as a seed; what
+matters is picking <em>some</em> fixed value so the “random” numbers
+PyTorch and NumPy generate follow the same sequence every time the code
+runs, the same way <code>random_state=42</code> did for the train/test
+split in <a href="05-preparing-the-data.html">Preparing the
+Data</a>.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="piece-1---the-embedding-layer-translating-raw-numbers-into-a-richer-language">Piece 1 - The embedding layer: translating raw numbers into a richer
+language<a class="anchor" aria-label="anchor" href="#piece-1---the-embedding-layer-translating-raw-numbers-into-a-richer-language"></a></h2>
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="va">self</span>.embedding <span class="op">=</span> nn.Linear(input_dim, embed_dim)</span></code></pre>
 </div>
 <p>Each jet arrives as just 10 plain numbers - a cramped way to
 represent something as complex as a jet. <code>nn.Linear(10, 64)</code>
@@ -448,17 +482,17 @@ expressive to work with internally. This step is called an
 <strong>embedding</strong>.</p>
 </section><section><h2 class="section-heading" id="piece-2---self-attention-letting-the-two-jets-talk-to-each-other">Piece 2 - Self-attention: letting the two jets “talk” to each
 other<a class="anchor" aria-label="anchor" href="#piece-2---self-attention-letting-the-two-jets-talk-to-each-other"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb3">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>encoder_layer <span class="op">=</span> nn.TransformerEncoderLayer(</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>    d_model<span class="op">=</span>embed_dim,</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    nhead<span class="op">=</span>num_heads,</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>    dim_feedforward<span class="op">=</span>hidden_dim,</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>    batch_first<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>    dropout<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>)</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a><span class="va">self</span>.transformer <span class="op">=</span> nn.TransformerEncoder(encoder_layer, num_layers<span class="op">=</span><span class="dv">2</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>encoder_layer <span class="op">=</span> nn.TransformerEncoderLayer(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>    d_model<span class="op">=</span>embed_dim,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>    nhead<span class="op">=</span>num_heads,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>    dim_feedforward<span class="op">=</span>hidden_dim,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>    batch_first<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>    dropout<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a><span class="va">self</span>.transformer <span class="op">=</span> nn.TransformerEncoder(encoder_layer, num_layers<span class="op">=</span><span class="dv">2</span>)</span></code></pre>
 </div>
 <p>This is the “Transformer” in MiniParT. Its core trick is
 <strong>self-attention</strong>: every jet in the pair looks at every
@@ -500,10 +534,10 @@ which is listed first doesn’t change the answer, which matches the
 physics - a jet pair “is” Hbb regardless of which jet was listed
 first.</p>
 </section><section><h2 class="section-heading" id="piece-3---mean-pooling-turning-2-jets-into-1-decision">Piece 3 - Mean pooling: turning “2 jets” into “1 decision”<a class="anchor" aria-label="anchor" href="#piece-3---mean-pooling-turning-2-jets-into-1-decision"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb4">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>x_pooled <span class="op">=</span> x.mean(dim<span class="op">=</span><span class="dv">1</span>)   <span class="co"># shape: (Batch, embed_dim)</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>x_pooled <span class="op">=</span> x.mean(dim<span class="op">=</span><span class="dv">1</span>)   <span class="co"># shape: (Batch, embed_dim)</span></span></code></pre>
 </div>
 <p>After the transformer, we still have a separate description for each
 of the 2 jets, but we need one answer per <em>event</em>. <strong>Mean
@@ -512,15 +546,15 @@ single 64-number summary. It’s a deliberately simple way to combine them
 - more sophisticated models use fancier methods, but averaging is easy
 to understand and works fine here.</p>
 </section><section><h2 class="section-heading" id="piece-4---the-classification-head-making-the-final-call">Piece 4 - The classification head: making the final call<a class="anchor" aria-label="anchor" href="#piece-4---the-classification-head-making-the-final-call"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb5">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="va">self</span>.mlp <span class="op">=</span> nn.Sequential(</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>    nn.Linear(embed_dim, hidden_dim),</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>    nn.ReLU(),</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a>    nn.Dropout(<span class="fl">0.1</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a>    nn.Linear(hidden_dim, num_classes),</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="va">self</span>.mlp <span class="op">=</span> nn.Sequential(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>    nn.Linear(embed_dim, hidden_dim),</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>    nn.ReLU(),</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>    nn.Dropout(<span class="fl">0.1</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a>    nn.Linear(hidden_dim, num_classes),</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>)</span></code></pre>
 </div>
 <p>A small standard neural network (MLP) that takes the pooled 64-number
 summary and turns it into 3 numbers - one raw score per class. Higher
@@ -543,16 +577,16 @@ numbers, one per class.</li>
 </ul></section><section><h2 class="section-heading" id="putting-it-together-the-forward-pass">Putting it together: the forward pass<a class="anchor" aria-label="anchor" href="#putting-it-together-the-forward-pass"></a></h2>
 <hr class="half-width"><p>“Forward pass” means: here’s how data flows through the model, start
 to finish.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>    <span class="co"># x shape: (Batch, 2, 10)   &lt;- a batch of jet pairs, 10 features each</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>    x <span class="op">=</span> <span class="va">self</span>.embedding(x)        <span class="co"># -&gt; (Batch, 2, 64)  translate each jet</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>    x <span class="op">=</span> <span class="va">self</span>.transformer(x)      <span class="co"># -&gt; (Batch, 2, 64)  jets exchange info</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a>    x_pooled <span class="op">=</span> x.mean(dim<span class="op">=</span><span class="dv">1</span>)     <span class="co"># -&gt; (Batch, 64)     average the 2 jets</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>    out <span class="op">=</span> <span class="va">self</span>.mlp(x_pooled)     <span class="co"># -&gt; (Batch, 3)      final class scores</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1" aria-label="code-block-6-7"></a>    <span class="cf">return</span> out</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>    <span class="co"># x shape: (Batch, 2, 10)   &lt;- a batch of jet pairs, 10 features each</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>    x <span class="op">=</span> <span class="va">self</span>.embedding(x)        <span class="co"># -&gt; (Batch, 2, 64)  translate each jet</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a>    x <span class="op">=</span> <span class="va">self</span>.transformer(x)      <span class="co"># -&gt; (Batch, 2, 64)  jets exchange info</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a>    x_pooled <span class="op">=</span> x.mean(dim<span class="op">=</span><span class="dv">1</span>)     <span class="co"># -&gt; (Batch, 64)     average the 2 jets</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a>    out <span class="op">=</span> <span class="va">self</span>.mlp(x_pooled)     <span class="co"># -&gt; (Batch, 3)      final class scores</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a>    <span class="cf">return</span> out</span></code></pre>
 </div>
 <p>Reading the shape comments is the easiest way to follow along: we
 start with 2 jets described by 10 raw numbers each, expand each jet’s
@@ -606,38 +640,6 @@ how the model actually learns from examples.</li>
 </ul></section><section><h2 class="section-heading" id="full-code-for-this-lesson">Full code for this lesson<a class="anchor" aria-label="anchor" href="#full-code-for-this-lesson"></a></h2>
 <hr class="half-width"><p>Copy this into your own Jupyter notebook cell(s), in order, as you
 go.</p>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="co"># Fixed seeds so training is reproducible - see the callout below.</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>torch.manual_seed(<span class="dv">42</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>np.random.seed(<span class="dv">42</span>)</span></code></pre>
-</div>
-<div id="callout1" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div class="callout-inner">
-<div class="callout-content">
-<p><code>torch.manual_seed(42)</code> and
-<code>np.random.seed(42)</code> fix the starting point for every random
-process used from here on - the model’s initial weights, dropout, and
-batch shuffling. Without a fixed seed, every learner (and every re-run)
-trains a slightly different model, so nobody’s numbers will exactly
-match anyone else’s, including the example numbers quoted later in this
-lesson. Run this cell before building or training the model, not
-after.</p>
-<p>The <code>42</code> itself isn’t special - it’s just an arbitrary
-fixed integer. Any number would work equally well as a seed; what
-matters is picking <em>some</em> fixed value so the “random” numbers
-PyTorch and NumPy generate follow the same sequence every time the code
-runs, the same way <code>random_state=42</code> did for the train/test
-split in <a href="05-preparing-the-data.html">Preparing the
-Data</a>.</p>
-</div>
-</div>
-</div>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -683,8 +685,11 @@ Data</a>.</p>
 <span id="cb8-40"><a href="#cb8-40" tabindex="-1" aria-label="code-block-8-40"></a>        out <span class="op">=</span> <span class="va">self</span>.mlp(x_pooled) <span class="co"># shape: (Batch, num_classes)</span></span>
 <span id="cb8-41"><a href="#cb8-41" tabindex="-1" aria-label="code-block-8-41"></a>        <span class="cf">return</span> out</span>
 <span id="cb8-42"><a href="#cb8-42" tabindex="-1" aria-label="code-block-8-42"></a></span>
-<span id="cb8-43"><a href="#cb8-43" tabindex="-1" aria-label="code-block-8-43"></a>model <span class="op">=</span> MiniParT(input_dim<span class="op">=</span><span class="bu">len</span>(FEATURE_NAMES))</span>
-<span id="cb8-44"><a href="#cb8-44" tabindex="-1" aria-label="code-block-8-44"></a><span class="bu">print</span>(model)</span></code></pre>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1" aria-label="code-block-8-43"></a>torch.manual_seed(<span class="dv">42</span>)</span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1" aria-label="code-block-8-44"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1" aria-label="code-block-8-45"></a></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1" aria-label="code-block-8-46"></a>model <span class="op">=</span> MiniParT(input_dim<span class="op">=</span><span class="bu">len</span>(FEATURE_NAMES))</span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1" aria-label="code-block-8-47"></a><span class="bu">print</span>(model)</span></code></pre>
 </div>
 <p>Instantiating <code>MiniParT</code> and calling
 <code>print(model)</code> prints a summary of every layer defined above,
