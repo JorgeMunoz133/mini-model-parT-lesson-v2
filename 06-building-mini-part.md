@@ -221,9 +221,23 @@ class MiniParT(nn.Module):
         out = self.mlp(x_pooled) # shape: (Batch, num_classes)
         return out
 
+# Fixed seeds so training is reproducible - see the callout below.
+torch.manual_seed(42)
+np.random.seed(42)
+
 model = MiniParT(input_dim=len(FEATURE_NAMES))
 print(model)
 ```
+
+::: callout
+`torch.manual_seed(42)` and `np.random.seed(42)` fix the starting point
+for every random process used from here on - the model's initial
+weights, dropout, and batch shuffling. Without a fixed seed, every
+learner (and every re-run) trains a slightly different model, so
+nobody's numbers will exactly match anyone else's, including the example
+numbers quoted later in this lesson. Run this cell before building or
+training the model, not after.
+:::
 
 Instantiating `MiniParT` and calling `print(model)` prints a summary of
 every layer defined above, in order - a useful sanity check that the

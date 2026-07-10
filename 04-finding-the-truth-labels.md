@@ -40,8 +40,8 @@ our training labels* - the model itself never sees them.
 
 For the signal samples, we need to figure out: *of all the jets in this
 event, which ones actually came from the Higgs boson's b-quarks (or
-c-quarks)?* This is a two-step process, handled inside
-`extract_features()` in `code/features.py`.
+c-quarks)?* This is a two-step process, handled inside the
+`extract_features()` function you'll build in this episode's code below.
 
 ### Step 1 - Find the Higgs boson's daughter quarks
 
