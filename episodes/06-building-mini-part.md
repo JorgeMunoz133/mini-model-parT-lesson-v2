@@ -179,6 +179,29 @@ A: After `self.embedding(x)`: `(32, 2, 64)` - embedding expands each jet's 10 nu
 Copy this into your own Jupyter notebook cell(s), in order, as you go.
 
 ```python
+# Fixed seeds so training is reproducible - see the callout below.
+torch.manual_seed(42)
+np.random.seed(42)
+```
+
+::: callout
+`torch.manual_seed(42)` and `np.random.seed(42)` fix the starting point
+for every random process used from here on - the model's initial
+weights, dropout, and batch shuffling. Without a fixed seed, every
+learner (and every re-run) trains a slightly different model, so
+nobody's numbers will exactly match anyone else's, including the example
+numbers quoted later in this lesson. Run this cell before building or
+training the model, not after.
+
+The `42` itself isn't special - it's just an arbitrary fixed integer.
+Any number would work equally well as a seed; what matters is picking
+*some* fixed value so the "random" numbers PyTorch and NumPy generate
+follow the same sequence every time the code runs, the same way
+`random_state=42` did for the train/test split in
+[Preparing the Data](05-preparing-the-data.md).
+:::
+
+```python
 class MiniParT(nn.Module):
     def __init__(self, input_dim, embed_dim=64, num_heads=4, hidden_dim=128, num_classes=3):
         super(MiniParT, self).__init__()
@@ -221,30 +244,9 @@ class MiniParT(nn.Module):
         out = self.mlp(x_pooled) # shape: (Batch, num_classes)
         return out
 
-# Fixed seeds so training is reproducible - see the callout below.
-torch.manual_seed(42)
-np.random.seed(42)
-
 model = MiniParT(input_dim=len(FEATURE_NAMES))
 print(model)
 ```
-
-::: callout
-`torch.manual_seed(42)` and `np.random.seed(42)` fix the starting point
-for every random process used from here on - the model's initial
-weights, dropout, and batch shuffling. Without a fixed seed, every
-learner (and every re-run) trains a slightly different model, so
-nobody's numbers will exactly match anyone else's, including the example
-numbers quoted later in this lesson. Run this cell before building or
-training the model, not after.
-
-The `42` itself isn't special - it's just an arbitrary fixed integer.
-Any number would work equally well as a seed; what matters is picking
-*some* fixed value so the "random" numbers PyTorch and NumPy generate
-follow the same sequence every time the code runs, the same way
-`random_state=42` did for the train/test split in
-[Preparing the Data](05-preparing-the-data.md).
-:::
 
 Instantiating `MiniParT` and calling `print(model)` prints a summary of
 every layer defined above, in order - a useful sanity check that the
