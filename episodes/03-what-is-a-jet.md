@@ -110,15 +110,16 @@ FEATURE_NAMES = [
     'Jet_chHEF', 'Jet_neHEF', 'Jet_chEmEF', 'Jet_neEmEF',
     'Jet_nConstituents', 'Jet_puId'
 ]
+max_events = 50000
 
 tree = uproot.open(TTHTOBB_PATH)["Events"]
-events = tree.arrays(FEATURE_NAMES)
+events = tree.arrays(FEATURE_NAMES, entry_stop=max_events)
 print("Number of events loaded:", len(events))
 print("Fields loaded:", events.fields)
 ```
 
 ```output
-Number of events loaded: 174000
+Number of events loaded: 50000
 Fields loaded: ['Jet_pt', 'Jet_eta', 'Jet_phi', 'Jet_mass', 'Jet_chHEF', 'Jet_neHEF', 'Jet_chEmEF', 'Jet_neEmEF', 'Jet_nConstituents', 'Jet_puId']
 ```
 
@@ -126,9 +127,9 @@ Fields loaded: ['Jet_pt', 'Jet_eta', 'Jet_phi', 'Jet_mass', 'Jet_chHEF', 'Jet_ne
 [Working in Google Colab](02-colab-and-data-access.md); `uproot.open()`
 reads directly from CERN over that URL, just like a local file path.
 `tree.arrays(...)` reads the requested columns for every event into
-memory - with no `entry_stop` limit, this reads all 174,000 events in the
-file, matching the count confirmed in
-[Working in Google Colab](02-colab-and-data-access.md). `events.fields`
+memory, and `entry_stop=max_events` caps how many events to read, so you
+can test on a small slice before running on everything - here it caps the
+174,000 events in the file down to the 50,000 shown above. `events.fields`
 confirms the 10 columns actually loaded match `FEATURE_NAMES`.
 
 ## Quick recap
