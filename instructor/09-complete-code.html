@@ -354,7 +354,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>The Complete Code</h1>
-        <p>Last updated on 2026-07-09 |
+        <p>Last updated on 2026-07-12 |
 
         <a href="https://github.com/JorgeMunoz133/mini-model-parT-lesson-v2/edit/main/episodes/09-complete-code.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -415,27 +415,23 @@ want the explanations, this page is a pure reference.</p>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a>vector.register_awkward()</span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1" aria-label="code-block-1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1" aria-label="code-block-1-13"></a><span class="co"># Fixed seeds so training is reproducible (see "What Is a Jet?" for why).</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1" aria-label="code-block-1-14"></a>torch.manual_seed(<span class="dv">42</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1" aria-label="code-block-1-15"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1" aria-label="code-block-1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1" aria-label="code-block-1-17"></a><span class="co"># We avoid DeepJet/DeepCSV variables as requested.</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1" aria-label="code-block-1-18"></a><span class="co"># Using kinematics + energy fractions + pileup/multiplicity info.</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1" aria-label="code-block-1-19"></a>FEATURE_NAMES <span class="op">=</span> [</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1" aria-label="code-block-1-20"></a>    <span class="st">'Jet_pt'</span>, <span class="st">'Jet_eta'</span>, <span class="st">'Jet_phi'</span>, <span class="st">'Jet_mass'</span>,</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1" aria-label="code-block-1-21"></a>    <span class="st">'Jet_chHEF'</span>, <span class="st">'Jet_neHEF'</span>, <span class="st">'Jet_chEmEF'</span>, <span class="st">'Jet_neEmEF'</span>,</span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1" aria-label="code-block-1-22"></a>    <span class="st">'Jet_nConstituents'</span>, <span class="st">'Jet_puId'</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1" aria-label="code-block-1-23"></a>]</span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1" aria-label="code-block-1-24"></a></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1" aria-label="code-block-1-25"></a><span class="co"># Labels: 0 = Hbb, 1 = Hcc, 2 = QCD</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1" aria-label="code-block-1-13"></a><span class="co"># We avoid DeepJet/DeepCSV variables as requested.</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1" aria-label="code-block-1-14"></a><span class="co"># Using kinematics + energy fractions + pileup/multiplicity info.</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1" aria-label="code-block-1-15"></a>FEATURE_NAMES <span class="op">=</span> [</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1" aria-label="code-block-1-16"></a>    <span class="st">'Jet_pt'</span>, <span class="st">'Jet_eta'</span>, <span class="st">'Jet_phi'</span>, <span class="st">'Jet_mass'</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1" aria-label="code-block-1-17"></a>    <span class="st">'Jet_chHEF'</span>, <span class="st">'Jet_neHEF'</span>, <span class="st">'Jet_chEmEF'</span>, <span class="st">'Jet_neEmEF'</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1" aria-label="code-block-1-18"></a>    <span class="st">'Jet_nConstituents'</span>, <span class="st">'Jet_puId'</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1" aria-label="code-block-1-19"></a>]</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1" aria-label="code-block-1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1" aria-label="code-block-1-21"></a><span class="co"># Labels: 0 = Hbb, 1 = Hcc, 2 = QCD</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1" aria-label="code-block-1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1" aria-label="code-block-1-23"></a><span class="co"># Streaming paths for the three validated CMS Open Data files this lesson</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1" aria-label="code-block-1-24"></a><span class="co"># uses (see "Working in Google Colab" for how these were confirmed).</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1" aria-label="code-block-1-25"></a>TTHTOBB_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1" aria-label="code-block-1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1" aria-label="code-block-1-27"></a><span class="co"># Streaming paths for the three validated CMS Open Data files this lesson</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1" aria-label="code-block-1-28"></a><span class="co"># uses (see "Working in Google Colab" for how these were confirmed).</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1" aria-label="code-block-1-29"></a>TTHTOBB_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1" aria-label="code-block-1-30"></a></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1" aria-label="code-block-1-31"></a>TTHTOCC_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTocc_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/50000/5C12D3AA-9311-B840-BB5D-4155D7FF66E4.root"</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1" aria-label="code-block-1-32"></a></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1" aria-label="code-block-1-33"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span></code></pre>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1" aria-label="code-block-1-27"></a>TTHTOCC_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTocc_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/50000/5C12D3AA-9311-B840-BB5D-4155D7FF66E4.root"</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1" aria-label="code-block-1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1" aria-label="code-block-1-29"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="step-2-extracting-features-and-matching-truth-labels">Step 2: Extracting features and matching truth labels<a class="anchor" aria-label="anchor" href="#step-2-extracting-features-and-matching-truth-labels"></a></h2>
 <hr class="half-width"><div class="codewrapper sourceCode" id="cb2">
@@ -594,8 +590,11 @@ want the explanations, this page is a pure reference.</p>
 <span id="cb4-40"><a href="#cb4-40" tabindex="-1" aria-label="code-block-4-40"></a>        out <span class="op">=</span> <span class="va">self</span>.mlp(x_pooled) <span class="co"># shape: (Batch, num_classes)</span></span>
 <span id="cb4-41"><a href="#cb4-41" tabindex="-1" aria-label="code-block-4-41"></a>        <span class="cf">return</span> out</span>
 <span id="cb4-42"><a href="#cb4-42" tabindex="-1" aria-label="code-block-4-42"></a></span>
-<span id="cb4-43"><a href="#cb4-43" tabindex="-1" aria-label="code-block-4-43"></a>model <span class="op">=</span> MiniParT(input_dim<span class="op">=</span><span class="bu">len</span>(FEATURE_NAMES))</span>
-<span id="cb4-44"><a href="#cb4-44" tabindex="-1" aria-label="code-block-4-44"></a><span class="bu">print</span>(model)</span></code></pre>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1" aria-label="code-block-4-43"></a>torch.manual_seed(<span class="dv">42</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1" aria-label="code-block-4-44"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1" aria-label="code-block-4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1" aria-label="code-block-4-46"></a>model <span class="op">=</span> MiniParT(input_dim<span class="op">=</span><span class="bu">len</span>(FEATURE_NAMES))</span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1" aria-label="code-block-4-47"></a><span class="bu">print</span>(model)</span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="step-5-training">Step 5: Training<a class="anchor" aria-label="anchor" href="#step-5-training"></a></h2>
 <hr class="half-width"><div class="codewrapper sourceCode" id="cb5">
@@ -895,8 +894,8 @@ any links that you are not going to use.
   "url": "https://JorgeMunoz133.github.io/mini-model-parT-lesson-v2/instructor/09-complete-code.html",
   "identifier": "https://JorgeMunoz133.github.io/mini-model-parT-lesson-v2/instructor/09-complete-code.html",
   "dateCreated": "2026-07-08",
-  "dateModified": "2026-07-09",
-  "datePublished": "2026-07-10"
+  "dateModified": "2026-07-12",
+  "datePublished": "2026-07-12"
 }
 
   </script><script>
