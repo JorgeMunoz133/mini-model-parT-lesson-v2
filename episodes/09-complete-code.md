@@ -33,10 +33,6 @@ from sklearn.preprocessing import StandardScaler
 
 vector.register_awkward()
 
-# Fixed seeds so training is reproducible (see "What Is a Jet?" for why).
-torch.manual_seed(42)
-np.random.seed(42)
-
 # We avoid DeepJet/DeepCSV variables as requested.
 # Using kinematics + energy fractions + pileup/multiplicity info.
 FEATURE_NAMES = [
@@ -211,6 +207,9 @@ class MiniParT(nn.Module):
         # Classify
         out = self.mlp(x_pooled) # shape: (Batch, num_classes)
         return out
+
+torch.manual_seed(42)
+np.random.seed(42)
 
 model = MiniParT(input_dim=len(FEATURE_NAMES))
 print(model)
