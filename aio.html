@@ -629,7 +629,7 @@ model actually being asked to do?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A: The model never sees a Higgs boson directly - it decays before
 reaching the detector. The model sees two jets and has to guess, from 10
@@ -809,17 +809,6 @@ reuse it in later episodes:</p>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span></code></pre>
 </div>
-</section><section><h2 class="section-heading" id="verifying-it-works">Verifying it works<a class="anchor" aria-label="anchor" href="#verifying-it-works"></a>
-</h2>
-<hr class="half-width">
-<p>Before moving on, confirm a stream actually opens and contains the
-data this lesson expects. The “Reading files directly from CERN” check
-above already demonstrated this using the local
-<code>tthtobb_path</code> variable; from here on, use the
-<code>TTHTOBB_PATH</code> constant instead, which points to the exact
-same file, so <code>tree.num_entries</code> should print that same
-<code>174000</code>. If it prints a much smaller number, you have the
-wrong file - check it against the table above before using it.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1113,7 +1102,7 @@ suggest about how the two jets are physically different?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A: <code>Jet_nConstituents</code> counts how many particles were
 reconstructed inside the jet. Four constituents is a tight, simple
@@ -2529,7 +2518,7 @@ expect to happen to training over the 10 epochs instead?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A: No error would be raised. Without
 <code>optimizer.zero_grad()</code>, the gradient information from
@@ -3103,7 +3092,7 @@ matches what this lesson predicted it would struggle with.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A: Overall accuracy is the diagonal sum divided by the total.
 Diagonal: <code>4399 + 4092 + 9401 = 17892</code>. Total:

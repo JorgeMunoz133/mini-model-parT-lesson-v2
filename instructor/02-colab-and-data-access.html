@@ -221,7 +221,6 @@
         <ul><li><a href="#installing-the-packages-this-lesson-needs">Installing the packages this lesson needs</a></li>
 <li><a href="#reading-files-directly-from-cern">Reading files directly from CERN</a></li>
 <li><a href="#the-three-files-this-lesson-uses">The three files this lesson uses</a></li>
-<li><a href="#verifying-it-works">Verifying it works</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -473,15 +472,6 @@ reuse it in later episodes:</p>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span></code></pre>
 </div>
-</section><section><h2 class="section-heading" id="verifying-it-works">Verifying it works<a class="anchor" aria-label="anchor" href="#verifying-it-works"></a></h2>
-<hr class="half-width"><p>Before moving on, confirm a stream actually opens and contains the
-data this lesson expects. The “Reading files directly from CERN” check
-above already demonstrated this using the local
-<code>tthtobb_path</code> variable; from here on, use the
-<code>TTHTOBB_PATH</code> constant instead, which points to the exact
-same file, so <code>tree.num_entries</code> should print that same
-<code>174000</code>. If it prints a much smaller number, you have the
-wrong file - check it against the table above before using it.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
