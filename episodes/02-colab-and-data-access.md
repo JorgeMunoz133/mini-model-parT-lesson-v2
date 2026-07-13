@@ -82,16 +82,6 @@ TTHTOCC_PATH = "root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16N
 QCD_BCTOE_PATH = "root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"
 ```
 
-## Verifying it works
-
-Before moving on, confirm a stream actually opens and contains the data
-this lesson expects. The "Reading files directly from CERN" check above
-already demonstrated this using the local `tthtobb_path` variable; from
-here on, use the `TTHTOBB_PATH` constant instead, which points to the
-exact same file, so `tree.num_entries` should print that same `174000`.
-If it prints a much smaller number, you have the wrong file - check it
-against the table above before using it.
-
 :::::: keypoints
 - Colab does not preinstall `uproot`, `fsspec-xrootd`, `awkward`, or `vector`; install them with `!pip install` before running anything else in this lesson.
 - `uproot.open()` on a `root://` URL streams a CMS file directly from CERN's servers, without downloading it.
