@@ -400,8 +400,7 @@ cosine similarity.</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a></h2>
-<hr class="half-width"><p>Run this cell first, then read on to see what each part does.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>model.<span class="bu">eval</span>()</span>
@@ -636,6 +635,8 @@ event per class. Averaging the fingerprint across every test event in a
 class cancels out that event-to-event noise and leaves a genuinely
 representative direction for what the model has learned about that class
 as a whole, which is why it’s the version worth trusting.</p>
+<hr><p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>Training accuracy (see <a href="07-training-the-model.html">Training
 the Model</a>) can lie to you - a model can look great on data it’s
 already memorized and still be useless on new data. This episode is

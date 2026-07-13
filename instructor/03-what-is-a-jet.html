@@ -404,8 +404,7 @@ features.</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a></h2>
-<hr class="half-width"><p>Run this cell first, then read on to see what each part does.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">import</span> uproot</span>
@@ -430,6 +429,8 @@ features.</li>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1" aria-label="code-block-1-20"></a></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1" aria-label="code-block-1-21"></a><span class="co"># Labels: 0 = Hbb, 1 = Hcc, 2 = QCD</span></span></code></pre>
 </div>
+<hr><p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>This block gathers the imports used across the rest of this lesson,
 including <code>vector.register_awkward()</code>, which is needed before
 the four-vector matching used in the next episode will work, and defines
@@ -448,10 +449,9 @@ outward in all directions. A single quark can’t exist alone for long -
 as it flies outward, it drags a cloud of other particles with it, the
 way a fast-moving truck kicks up a spray of gravel behind it.
 <strong>That whole spray, moving roughly together, is called a
-jet.</strong> For how CMS actually reconstructs jets from detector hits
-- the clustering algorithm, pileup mitigation, and the difference
-between the small AK4 jets used in this lesson and the larger jets used
-elsewhere in CMS - see the CMS Open Data Workshop’s <a href="https://cms-opendata-workshop.github.io/workshop2026-lesson-physics-objects/instructor/04-jetmet.html" class="external-link">jets
+jet.</strong> For the full detector-level picture - the clustering
+algorithm, pileup removal, and the complete NanoAOD <code>Jet_*</code>
+branch list - see the CMS Open Data Workshop’s <a href="https://cms-opendata-workshop.github.io/workshop2026-lesson-physics-objects/instructor/04-jetmet.html" class="external-link">jets
 and MET lesson</a>; this episode picks up from there with the 10 numbers
 MiniParT actually uses.</p>
 <p>The detector doesn’t record “a bottom quark went this way.” It

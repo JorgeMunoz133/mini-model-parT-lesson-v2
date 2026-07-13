@@ -404,8 +404,7 @@ examples.</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a></h2>
-<hr class="half-width"><p>Run this cell first, then read on to see what each part does.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="kw">def</span> delta_phi(phi1, phi2):</span>
@@ -483,6 +482,8 @@ examples.</li>
 <span id="cb1-73"><a href="#cb1-73" tabindex="-1" aria-label="code-block-1-73"></a>    <span class="bu">print</span>(<span class="ss">f"Loaded label </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>X<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> events"</span>)</span>
 <span id="cb1-74"><a href="#cb1-74" tabindex="-1" aria-label="code-block-1-74"></a>    <span class="cf">return</span> X, y</span></code></pre>
 </div>
+<hr><p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>This defines <code>extract_features()</code>, which this episode
 builds piece by piece below - a single function that takes a file path,
 a label, and whether the sample is signal or background, and returns the
@@ -512,13 +513,7 @@ close enough to a truth quark is thrown away.</p>
 reconstructed jets (green triangles) within a ΔR window; jets outside
 that window (grey triangles) are unmatched and excluded from
 training.</div>
-</figure><p>Qu, Li, and Qian, <a href="https://arxiv.org/abs/2202.03772" class="external-link">“Particle Transformer for Jet
-Tagging”</a> (ICML 2022, arXiv:2202.03772, CC BY 4.0), uses this same
-generator-level ΔR matching methodology to build its training data, for
-its large-radius jets; this lesson’s jets are CMS’s standard
-small-radius AK4 jets, so we use a ΔR &lt; 0.4 threshold instead, as
-you’ll see below.</p>
-<p>For the signal samples, we need to figure out: <em>of all the jets in
+</figure><p>For the signal samples, we need to figure out: <em>of all the jets in
 this event, which ones actually came from the Higgs boson’s b-quarks (or
 c-quarks)?</em> This is a two-step process, handled inside the
 <code>extract_features()</code> function you already ran above.</p>
@@ -672,7 +667,7 @@ number of events, and why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A: Fewer events. A stricter (smaller) ΔR threshold means a jet has to
 point much closer to a truth quark’s direction to count as “matched.”

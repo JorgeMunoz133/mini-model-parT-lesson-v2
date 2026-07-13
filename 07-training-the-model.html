@@ -397,8 +397,7 @@ model generalizes.</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a></h2>
-<hr class="half-width"><p>Run this cell first, then read on to see what each part does.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span>)</span>
@@ -452,6 +451,8 @@ slightly - but they land in the same range as the roughly 0.68 → 0.56
 loss and roughly 66% → 72% training accuracy trend used throughout this
 lesson, including in <a href="08-evaluating-the-model.html">Evaluating
 the Model</a>.</p>
+<hr><p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>The model from <a href="06-building-mini-part.html">Building
 MiniParT</a> starts out knowing nothing - its weights are randomly
 initialized. Training is the repeated process of showing it examples,
@@ -513,8 +514,14 @@ batch, every epoch:</p>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1" aria-label="code-block-4-12"></a>        optimizer.step()</span></code></pre>
 </div>
 <p>One <strong>epoch</strong> is one full pass through every batch in
-the training set; we do 10 (<code>epochs = 10</code>). For every batch
-of 256 jet pairs:</p>
+the training set; we do 10 (<code>epochs = 10</code>). A single pass
+isn’t enough - the weights only move a small amount with each nudge, so
+the model needs to see the training data multiple times, nudging its
+weights a little further each time, before it settles into a genuinely
+useful set of weights. As it trains, watch the printed loss: it should
+generally trend downward epoch over epoch - that’s the sign the model is
+actually learning something, rather than stuck or diverging.</p>
+<p>For every batch of 256 jet pairs:</p>
 <ol style="list-style-type: decimal"><li>
 <strong><code>model.train()</code></strong> - tells the model we’re
 training, switching on dropout (see <a href="06-building-mini-part.html">Building MiniParT</a>).</li>
@@ -593,7 +600,7 @@ expect to happen to training over the 10 epochs instead?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A: No error would be raised. Without
 <code>optimizer.zero_grad()</code>, the gradient information from

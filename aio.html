@@ -706,14 +706,41 @@ opened correctly.</li>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="installing-the-packages-this-lesson-needs">Installing the packages this lesson needs<a class="anchor" aria-label="anchor" href="#installing-the-packages-this-lesson-needs"></a>
+<section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a>
 </h2>
 <hr class="half-width">
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="op">!</span>pip install uproot fsspec<span class="op">-</span>xrootd awkward vector numpy torch scikit<span class="op">-</span>learn matplotlib seaborn pandas</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="im">import</span> uproot</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>TTHTOBB_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a>TTHTOCC_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTocc_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/50000/5C12D3AA-9311-B840-BB5D-4155D7FF66E4.root"</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a>tree <span class="op">=</span> uproot.<span class="bu">open</span>(TTHTOBB_PATH)[<span class="st">"Events"</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1" aria-label="code-block-1-12"></a><span class="bu">print</span>(<span class="st">"Number of events:"</span>, tree.num_entries)</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Number of events: 174000</code></pre>
+</div>
+<hr>
+<p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>If you followed <a href="index.html#setup">Setup</a>, you likely already
-ran this install command once. Running it again here is a quick,
+ran the install line above once. Running it again here is a quick,
 harmless verification that everything is still in place before moving on
 - <code>pip</code> just confirms the packages are installed and does
 nothing if they already are.</p>
+</section><section><h2 class="section-heading" id="installing-the-packages-this-lesson-needs">Installing the packages this lesson needs<a class="anchor" aria-label="anchor" href="#installing-the-packages-this-lesson-needs"></a>
+</h2>
+<hr class="half-width">
 <p>Colab comes with many common data science packages already installed,
 including <code>numpy</code>, <code>pandas</code>,
 <code>matplotlib</code>, <code>seaborn</code>,
@@ -724,10 +751,10 @@ including <code>numpy</code>, <code>pandas</code>,
 (for handling data where different events can have different numbers of
 particles), and <code>vector</code> (for particle four-vectors). Run
 this in a Colab cell before anything else in this lesson:</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="op">!</span>pip install uproot fsspec<span class="op">-</span>xrootd awkward vector numpy torch scikit<span class="op">-</span>learn matplotlib seaborn pandas</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="op">!</span>pip install uproot fsspec<span class="op">-</span>xrootd awkward vector numpy torch scikit<span class="op">-</span>learn matplotlib seaborn pandas</span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="reading-files-directly-from-cern">Reading files directly from CERN<a class="anchor" aria-label="anchor" href="#reading-files-directly-from-cern"></a>
 </h2>
@@ -737,15 +764,15 @@ straight into <code>uproot</code> over a network protocol called xrootd,
 instead of being downloaded first. Hand <code>uproot</code> a
 <code>root://</code> URL instead of a local file path, and it reads only
 the parts of the file it actually needs:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="im">import</span> uproot</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>tthtobb_path <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>tree <span class="op">=</span> uproot.<span class="bu">open</span>(tthtobb_path)[<span class="st">"Events"</span>]</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a><span class="bu">print</span>(<span class="st">"Number of events:"</span>, tree.num_entries)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="im">import</span> uproot</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>tthtobb_path <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>tree <span class="op">=</span> uproot.<span class="bu">open</span>(tthtobb_path)[<span class="st">"Events"</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a><span class="bu">print</span>(<span class="st">"Number of events:"</span>, tree.num_entries)</span></code></pre>
 </div>
 <p>Nothing here gets downloaded to disk - <code>uproot</code> streams
 just the data it needs, which is why this works comfortably inside
@@ -795,29 +822,30 @@ over 100,000 events:</p>
 </table>
 <p>Save each file’s full streaming path as a variable now, so you can
 reuse it in later episodes:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>TTHTOBB_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>TTHTOCC_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTocc_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/50000/5C12D3AA-9311-B840-BB5D-4155D7FF66E4.root"</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>TTHTOBB_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>TTHTOCC_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTocc_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/50000/5C12D3AA-9311-B840-BB5D-4155D7FF66E4.root"</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a>QCD_BCTOE_PATH <span class="op">=</span> <span class="st">"root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"</span></span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="verifying-it-works">Verifying it works<a class="anchor" aria-label="anchor" href="#verifying-it-works"></a>
 </h2>
 <hr class="half-width">
-<p>Before moving on, confirm a stream actually opens and contains the
-data this lesson expects:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<p>The last two lines of the block you already ran above did exactly
+this - confirmed a stream actually opens and contains the data this
+lesson expects:</p>
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>tree <span class="op">=</span> uproot.<span class="bu">open</span>(TTHTOBB_PATH)[<span class="st">"Events"</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="bu">print</span>(<span class="st">"Number of events:"</span>, tree.num_entries)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>tree <span class="op">=</span> uproot.<span class="bu">open</span>(TTHTOBB_PATH)[<span class="st">"Events"</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="bu">print</span>(<span class="st">"Number of events:"</span>, tree.num_entries)</span></code></pre>
 </div>
-<p>This should print <code>174000</code>. If it prints a much smaller
-number, you have the wrong file - check it against the table above
-before using it.</p>
+<p>That printed <code>174000</code> above. If it prints a much smaller
+number when you run it, you have the wrong file - check it against the
+table above before using it.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -898,7 +926,6 @@ features.</li>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a>
 </h2>
 <hr class="half-width">
-<p>Run this cell first, then read on to see what each part does.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -924,6 +951,9 @@ features.</li>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1" aria-label="code-block-1-20"></a></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1" aria-label="code-block-1-21"></a><span class="co"># Labels: 0 = Hbb, 1 = Hcc, 2 = QCD</span></span></code></pre>
 </div>
+<hr>
+<p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>This block gathers the imports used across the rest of this lesson,
 including <code>vector.register_awkward()</code>, which is needed before
 the four-vector matching used in the next episode will work, and defines
@@ -944,10 +974,9 @@ outward in all directions. A single quark can’t exist alone for long -
 as it flies outward, it drags a cloud of other particles with it, the
 way a fast-moving truck kicks up a spray of gravel behind it.
 <strong>That whole spray, moving roughly together, is called a
-jet.</strong> For how CMS actually reconstructs jets from detector hits
-- the clustering algorithm, pileup mitigation, and the difference
-between the small AK4 jets used in this lesson and the larger jets used
-elsewhere in CMS - see the CMS Open Data Workshop’s <a href="https://cms-opendata-workshop.github.io/workshop2026-lesson-physics-objects/instructor/04-jetmet.html" class="external-link">jets
+jet.</strong> For the full detector-level picture - the clustering
+algorithm, pileup removal, and the complete NanoAOD <code>Jet_*</code>
+branch list - see the CMS Open Data Workshop’s <a href="https://cms-opendata-workshop.github.io/workshop2026-lesson-physics-objects/instructor/04-jetmet.html" class="external-link">jets
 and MET lesson</a>; this episode picks up from there with the 10 numbers
 MiniParT actually uses.</p>
 <p>The detector doesn’t record “a bottom quark went this way.” It
@@ -1207,7 +1236,6 @@ examples.</li>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a>
 </h2>
 <hr class="half-width">
-<p>Run this cell first, then read on to see what each part does.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1286,6 +1314,9 @@ examples.</li>
 <span id="cb1-73"><a href="#cb1-73" tabindex="-1" aria-label="code-block-1-73"></a>    <span class="bu">print</span>(<span class="ss">f"Loaded label </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>X<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> events"</span>)</span>
 <span id="cb1-74"><a href="#cb1-74" tabindex="-1" aria-label="code-block-1-74"></a>    <span class="cf">return</span> X, y</span></code></pre>
 </div>
+<hr>
+<p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>This defines <code>extract_features()</code>, which this episode
 builds piece by piece below - a single function that takes a file path,
 a label, and whether the sample is signal or background, and returns the
@@ -1319,13 +1350,7 @@ close enough to a truth quark is thrown away.</p>
 reconstructed jets (green triangles) within a ΔR window; jets outside
 that window (grey triangles) are unmatched and excluded from
 training.</div>
-</figure><p>Qu, Li, and Qian, <a href="https://arxiv.org/abs/2202.03772" class="external-link">“Particle Transformer for Jet
-Tagging”</a> (ICML 2022, arXiv:2202.03772, CC BY 4.0), uses this same
-generator-level ΔR matching methodology to build its training data, for
-its large-radius jets; this lesson’s jets are CMS’s standard
-small-radius AK4 jets, so we use a ΔR &lt; 0.4 threshold instead, as
-you’ll see below.</p>
-<p>For the signal samples, we need to figure out: <em>of all the jets in
+</figure><p>For the signal samples, we need to figure out: <em>of all the jets in
 this event, which ones actually came from the Higgs boson’s b-quarks (or
 c-quarks)?</em> This is a two-step process, handled inside the
 <code>extract_features()</code> function you already ran above.</p>
@@ -1493,7 +1518,7 @@ number of events, and why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A: Fewer events. A stricter (smaller) ΔR threshold means a jet has to
 point much closer to a truth quark’s direction to count as “matched.”
@@ -1881,7 +1906,6 @@ forward pass.</li>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a>
 </h2>
 <hr class="half-width">
-<p>Run this cell first, then read on to see what each part does.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1968,6 +1992,9 @@ PyTorch version, but the layers and shapes will match.) Instantiating
 summary of every layer defined in the class, in order - a useful sanity
 check that the architecture you’re about to read about below is the
 architecture PyTorch actually built.</p>
+<hr>
+<p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>This is the heart of the project: <code>class MiniParT</code>,
 defined above. Nothing here is magic - every line is one of a handful of
 building blocks stacked together, walked through piece by piece
@@ -2313,7 +2340,6 @@ model generalizes.</li>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a>
 </h2>
 <hr class="half-width">
-<p>Run this cell first, then read on to see what each part does.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2368,6 +2394,9 @@ slightly - but they land in the same range as the roughly 0.68 → 0.56
 loss and roughly 66% → 72% training accuracy trend used throughout this
 lesson, including in <a href="08-evaluating-the-model.html">Evaluating
 the Model</a>.</p>
+<hr>
+<p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>The model from <a href="06-building-mini-part.html">Building
 MiniParT</a> starts out knowing nothing - its weights are randomly
 initialized. Training is the repeated process of showing it examples,
@@ -2436,8 +2465,14 @@ batch, every epoch:</p>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1" aria-label="code-block-4-12"></a>        optimizer.step()</span></code></pre>
 </div>
 <p>One <strong>epoch</strong> is one full pass through every batch in
-the training set; we do 10 (<code>epochs = 10</code>). For every batch
-of 256 jet pairs:</p>
+the training set; we do 10 (<code>epochs = 10</code>). A single pass
+isn’t enough - the weights only move a small amount with each nudge, so
+the model needs to see the training data multiple times, nudging its
+weights a little further each time, before it settles into a genuinely
+useful set of weights. As it trains, watch the printed loss: it should
+generally trend downward epoch over epoch - that’s the sign the model is
+actually learning something, rather than stuck or diverging.</p>
+<p>For every batch of 256 jet pairs:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong><code>model.train()</code></strong> - tells the model we’re
@@ -2520,7 +2555,7 @@ expect to happen to training over the 10 epochs instead?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A: No error would be raised. Without
 <code>optimizer.zero_grad()</code>, the gradient information from
@@ -2625,7 +2660,6 @@ cosine similarity.</li>
 <section><h2 class="section-heading" id="run-this-first">Run this first<a class="anchor" aria-label="anchor" href="#run-this-first"></a>
 </h2>
 <hr class="half-width">
-<p>Run this cell first, then read on to see what each part does.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2861,6 +2895,9 @@ event per class. Averaging the fingerprint across every test event in a
 class cancels out that event-to-event noise and leaves a genuinely
 representative direction for what the model has learned about that class
 as a whole, which is why it’s the version worth trusting.</p>
+<hr>
+<p><em>Run the block above first, then read on to see what each part
+does.</em></p>
 <p>Training accuracy (see <a href="07-training-the-model.html">Training
 the Model</a>) can lie to you - a model can look great on data it’s
 already memorized and still be useless on new data. This episode is
