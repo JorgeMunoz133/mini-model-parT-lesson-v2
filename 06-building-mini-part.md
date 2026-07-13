@@ -22,8 +22,6 @@ exercises: 15
 
 ## Run this first
 
-Run this cell first, then read on to see what each part does.
-
 ```python
 class MiniParT(nn.Module):
     def __init__(self, input_dim, embed_dim=64, num_heads=4, hidden_dim=128, num_classes=3):
@@ -108,6 +106,9 @@ PyTorch version, but the layers and shapes will match.) Instantiating
 defined in the class, in order - a useful sanity check that the
 architecture you're about to read about below is the architecture
 PyTorch actually built.
+
+---
+*Run the block above first, then read on to see what each part does.*
 
 This is the heart of the project: `class MiniParT`, defined above.
 Nothing here is magic - every line is one of a handful of building

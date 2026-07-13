@@ -20,8 +20,6 @@ exercises: 10
 
 ## Run this first
 
-Run this cell first, then read on to see what each part does.
-
 ```python
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
@@ -73,6 +71,9 @@ These exact numbers are illustrative - your own run will vary slightly -
 but they land in the same range as the roughly 0.68 → 0.56 loss and
 roughly 66% → 72% training accuracy trend used throughout this lesson,
 including in [Evaluating the Model](08-evaluating-the-model.md).
+
+---
+*Run the block above first, then read on to see what each part does.*
 
 The model from [Building MiniParT](06-building-mini-part.md) starts out
 knowing nothing - its weights are randomly initialized. Training is the
@@ -129,7 +130,15 @@ for epoch in range(epochs):
 ```
 
 One **epoch** is one full pass through every batch in the training set;
-we do 10 (`epochs = 10`). For every batch of 256 jet pairs:
+we do 10 (`epochs = 10`). A single pass isn't enough - the weights only
+move a small amount with each nudge, so the model needs to see the
+training data multiple times, nudging its weights a little further each
+time, before it settles into a genuinely useful set of weights. As it
+trains, watch the printed loss: it should generally trend downward epoch
+over epoch - that's the sign the model is actually learning something,
+rather than stuck or diverging.
+
+For every batch of 256 jet pairs:
 
 1. **`model.train()`** - tells the model we're training, switching on
    dropout (see [Building MiniParT](06-building-mini-part.md)).

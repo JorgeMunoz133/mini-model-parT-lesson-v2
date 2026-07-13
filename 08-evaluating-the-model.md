@@ -20,8 +20,6 @@ exercises: 15
 
 ## Run this first
 
-Run this cell first, then read on to see what each part does.
-
 ```python
 model.eval()
 correct = 0
@@ -227,6 +225,9 @@ class. Averaging the fingerprint across every test event in a class
 cancels out that event-to-event noise and leaves a genuinely
 representative direction for what the model has learned about that
 class as a whole, which is why it's the version worth trusting.
+
+---
+*Run the block above first, then read on to see what each part does.*
 
 Training accuracy (see [Training the Model](07-training-the-model.md)) can
 lie to you - a model can look great on data it's already memorized and

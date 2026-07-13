@@ -16,12 +16,36 @@ exercises: 0
 - Identify the three files this lesson uses and confirm a stream opened correctly.
 ::::::
 
-## Installing the packages this lesson needs
+## Run this first
 
-If you followed [Setup](../learners/setup.md), you likely already ran this
-install command once. Running it again here is a quick, harmless
+```python
+!pip install uproot fsspec-xrootd awkward vector numpy torch scikit-learn matplotlib seaborn pandas
+
+import uproot
+
+TTHTOBB_PATH = "root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/260000/410F948C-6956-2D45-A170-DE6431E02281.root"
+
+TTHTOCC_PATH = "root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/ttHTocc_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/50000/5C12D3AA-9311-B840-BB5D-4155D7FF66E4.root"
+
+QCD_BCTOE_PATH = "root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL16NanoAODv9/QCD_Pt_80to170_bcToE_TuneCP5_13TeV_pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A133135A-C83E-D245-846F-210C7AD2D29C.root"
+
+tree = uproot.open(TTHTOBB_PATH)["Events"]
+print("Number of events:", tree.num_entries)
+```
+
+```output
+Number of events: 174000
+```
+
+---
+*Run the block above first, then read on to see what each part does.*
+
+If you followed [Setup](../learners/setup.md), you likely already ran the
+install line above once. Running it again here is a quick, harmless
 verification that everything is still in place before moving on - `pip`
 just confirms the packages are installed and does nothing if they already are.
+
+## Installing the packages this lesson needs
 
 Colab comes with many common data science packages already installed,
 including `numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, and
@@ -80,16 +104,18 @@ QCD_BCTOE_PATH = "root://eospublic.cern.ch//eos/opendata/cms/mc/RunIISummer20UL1
 
 ## Verifying it works
 
-Before moving on, confirm a stream actually opens and contains the data
-this lesson expects:
+The last two lines of the block you already ran above did exactly this -
+confirmed a stream actually opens and contains the data this lesson
+expects:
 
 ```python
 tree = uproot.open(TTHTOBB_PATH)["Events"]
 print("Number of events:", tree.num_entries)
 ```
 
-This should print `174000`. If it prints a much smaller number, you have
-the wrong file - check it against the table above before using it.
+That printed `174000` above. If it prints a much smaller number when you
+run it, you have the wrong file - check it against the table above before
+using it.
 
 :::::: keypoints
 - Colab does not preinstall `uproot`, `fsspec-xrootd`, `awkward`, or `vector`; install them with `!pip install` before running anything else in this lesson.

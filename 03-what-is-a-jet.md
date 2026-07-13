@@ -22,8 +22,6 @@ exercises: 10
 
 ## Run this first
 
-Run this cell first, then read on to see what each part does.
-
 ```python
 import uproot
 import awkward as ak
@@ -48,6 +46,9 @@ FEATURE_NAMES = [
 # Labels: 0 = Hbb, 1 = Hcc, 2 = QCD
 ```
 
+---
+*Run the block above first, then read on to see what each part does.*
+
 This block gathers the imports used across the rest of this lesson,
 including `vector.register_awkward()`, which is needed before the
 four-vector matching used in the next episode will work, and defines
@@ -66,10 +67,9 @@ When a collision happens inside CMS, quarks and other particles shoot
 outward in all directions. A single quark can't exist alone for long - as
 it flies outward, it drags a cloud of other particles with it, the way a
 fast-moving truck kicks up a spray of gravel behind it. **That whole
-spray, moving roughly together, is called a jet.** For how CMS actually
-reconstructs jets from detector hits - the clustering algorithm, pileup
-mitigation, and the difference between the small AK4 jets used in this
-lesson and the larger jets used elsewhere in CMS - see the CMS Open Data
+spray, moving roughly together, is called a jet.** For the full
+detector-level picture - the clustering algorithm, pileup removal, and
+the complete NanoAOD `Jet_*` branch list - see the CMS Open Data
 Workshop's
 [jets and MET lesson](https://cms-opendata-workshop.github.io/workshop2026-lesson-physics-objects/instructor/04-jetmet.html);
 this episode picks up from there with the 10 numbers MiniParT actually uses.
