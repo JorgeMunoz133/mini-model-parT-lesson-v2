@@ -22,8 +22,6 @@ exercises: 10
 
 ## Run this first
 
-Run this cell first, then read on to see what each part does.
-
 ```python
 def delta_phi(phi1, phi2):
     dphi = phi1 - phi2
@@ -101,6 +99,9 @@ def extract_features(filepath, label, is_signal=True, max_events=None):
     return X, y
 ```
 
+---
+*Run the block above first, then read on to see what each part does.*
+
 This defines `extract_features()`, which this episode builds piece by
 piece below - a single function that takes a file path, a label, and
 whether the sample is signal or background, and returns the finished
@@ -131,12 +132,6 @@ match get used to build a training label - anything that doesn't match
 close enough to a truth quark is thrown away.
 
 ![Truth quarks (filled dots) are matched to nearby reconstructed jets (green triangles) within a ΔR window; jets outside that window (grey triangles) are unmatched and excluded from training.](fig/jet-truth-matching.svg)
-
-Qu, Li, and Qian, ["Particle Transformer for Jet Tagging"](https://arxiv.org/abs/2202.03772)
-(ICML 2022, arXiv:2202.03772, CC BY 4.0), uses this same generator-level
-ΔR matching methodology to build its training data, for its large-radius
-jets; this lesson's jets are CMS's standard small-radius AK4 jets, so we
-use a ΔR < 0.4 threshold instead, as you'll see below.
 
 For the signal samples, we need to figure out: *of all the jets in this
 event, which ones actually came from the Higgs boson's b-quarks (or
