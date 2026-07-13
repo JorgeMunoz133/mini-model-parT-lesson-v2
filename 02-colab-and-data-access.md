@@ -18,6 +18,11 @@ exercises: 0
 
 ## Installing the packages this lesson needs
 
+If you followed [Setup](../learners/setup.md), you likely already ran this
+install command once. Running it again here is a quick, harmless
+verification that everything is still in place before moving on - `pip`
+just confirms the packages are installed and does nothing if they already are.
+
 Colab comes with many common data science packages already installed,
 including `numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, and
 `torch`. It does not come with `uproot` (for reading ROOT files),
